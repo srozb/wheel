@@ -20,9 +20,12 @@ import (
 
 func main() {
 	t := wheel.NewToken("Seed w formie szesnastkowej")
-	t.Generate()
-	tokenSting := t.GetTokenString()
-	fmt.Printf(tokenSting)
+    t.UpdateTime()
+    err := t.Generate()
+    if err != nil {
+        fmt.Printf("cos nie tak: %s", err)
+    }
+	fmt.Printf(t.GetTokenString())
 }
 ```
 
