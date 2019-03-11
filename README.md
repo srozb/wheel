@@ -13,14 +13,15 @@ Przykładowe uycie:
 package main
 
 import (
-	"fmt"
+    "fmt"
+    "time"
 
 	"github.com/srozb/wheel"
 )
 
 func main() {
-	t := wheel.NewToken("Seed w formie szesnastkowej")
-    t.UpdateTime()
+    t := wheel.NewToken("Seed w formie szesnastkowej")
+    t.SetTime(time.Now().Unix())
     err := t.Generate()
     if err != nil {
         fmt.Printf("cos nie tak: %s", err)

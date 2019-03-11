@@ -39,3 +39,11 @@ func TestNewToken(t *testing.T) {
 		t.Errorf("no error on invalid hexstring")
 	}
 }
+
+func TestSetTime(t *testing.T) {
+	tk, _ := NewToken("aa")
+	tk.SetTime(1552308361)
+	if !reflect.DeepEqual(tk.vendorEpoch, [4]byte{250, 197, 138, 1}) {
+		t.Errorf("vendorEpoch value mismatch: %v should be %v", tk.vendorEpoch, []byte{250, 197, 138, 1})
+	}
+}

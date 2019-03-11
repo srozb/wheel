@@ -9,7 +9,6 @@ import (
 	"log"
 	"math"
 	"strconv"
-	"time"
 )
 
 //Token token struct
@@ -34,19 +33,16 @@ func NewToken(secret string) (*Token, error) {
 	return t, err
 }
 
-//UpdateTime updates vendorEpoch field with a value based on current time. This assures
+//SetTime updates vendorEpoch field with a value based on current time. This assures
 //token will not be already expired.
-func (t *Token) UpdateTime() {
-	vendorEpoch := int64(math.Round((float64(time.Now().Unix()) + float64(t.timeOffset)) / float64(t.timeTolerance)))
+func (t *Token) SetTime(epoch int64) {
+	vendorEpoch := int64(math.Round((float64(epoch) + float64(t.timeOffset)) / float64(t.timeTolerance)))
 	t.vendorEpoch = [4]byte{
 		byte(vendorEpoch),
 		byte(vendorEpoch >> 8),
 		byte(vendorEpoch >> 16),
 		byte(vendorEpoch >> 24),
 	}
-}
-
-func (t *Token) createTokenString() {
 }
 
 //Generate generate/regenerate token value
