@@ -9,12 +9,13 @@ import (
 	"log"
 	"math"
 	"strconv"
+	"time"
 )
 
 //Token token struct
 type Token struct {
 	timeTolerance uint
-	timeOffset    uint
+	timeOffset    int
 	vendorEpoch   [4]byte
 	secret        []byte
 	hashToken     []byte
@@ -24,7 +25,7 @@ type Token struct {
 func NewToken(secret string) (*Token, error) {
 	t := new(Token)
 	t.timeTolerance = 60
-	t.timeOffset = 3600
+	_, t.timeOffset = time.Now().Zone()
 	var err error
 	t.secret, err = hex.DecodeString(secret)
 	if err != nil {
